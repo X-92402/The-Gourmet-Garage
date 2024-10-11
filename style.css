@@ -521,10 +521,11 @@ body {
   gap: 10px;
   border: 2px solid hsl(38, 61%, 73%);
   border-radius: 6px;
-  width: 315px;
+  width: 300px;
   padding: 20px;
   box-shadow: 3px 3px 3px #a16e62;
   transition: 400ms ease;
+  height: 350px; /* Add a fixed height to balance the size */
 }
 #service .service_container .serviceItem:hover {
   transform: scale(1.1);
@@ -548,6 +549,7 @@ body {
   font-size: 16px;
   font-family: forum;
   font-weight: 600;
+  margin-bottom: 20px; /* Add some margin to balance the text */
 }
 
 /* OUR STRENGTH SECTION */
