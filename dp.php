@@ -2,7 +2,7 @@
 // dp.php: Database connection file
 $servername = "localhost";
 $username = "root";
-$password = "root";
+$password = "";
 $dbname = "gourmet_garage";
 
 // Establish connection

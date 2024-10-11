@@ -3,7 +3,7 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
-    background-color: #121011; /* Matches the background color used in the about section */
+    background-color: #121011; /* Background color for the body */
     color: white;
 }
 
@@ -25,7 +25,6 @@ nav ul li a {
     text-decoration: none;
     color: white;
     font-weight: bold;
-    font-family: 'Poppins', sans-serif;
     transition: color 0.3s ease;
 }
 
@@ -42,7 +41,6 @@ header {
 }
 
 header h1 {
-    font-family: 'Forum', cursive;
     font-size: 2.5em;
     color: hsl(38, 61%, 73%);
     text-shadow: 3px 3px 3px #a16e62;
@@ -59,10 +57,9 @@ section {
 
 section h2 {
     font-size: 1.8em;
-    font-family: 'Forum', cursive;
     color: hsl(38, 61%, 73%);
     margin-bottom: 15px;
-    text-shadow:  2px 2px 2px #a16e62;
+    text-shadow: 2px 2px 2px #a16e62;
 }
 
 /* Form Styling */
@@ -107,11 +104,34 @@ form button:hover {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-#reservation-list div, #menu-list div {
+#reservation-list table, #menu-list table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#reservation-list th, #menu-list th {
+    background-color: hsl(38, 61%, 73%);
+    color: black;
+    padding: 10px;
+    text-align: left;
+}
+
+#reservation-list td, #menu-list td {
     padding: 10px;
     border-bottom: 1px solid #444;
 }
 
+#reservation-list tr:hover, #menu-list tr:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Highlight row on hover */
+}
+
 #reservation-list div:last-child, #menu-list div:last-child {
     border-bottom: none;
+}
+
+/* Loading Message */
+#reservation-list.loading {
+    text-align: center;
+    font-size: 1.2em;
+    color: hsl(38, 61%, 73%);
 }
