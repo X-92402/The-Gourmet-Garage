@@ -13,5 +13,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     } else {
         $error = "Invalid Credentials";
+        // Redirect back to the login form with an error message
+        header("Location: admin_login.html?error=" . urlencode($error));
+        exit;
     }
 }
+?>
