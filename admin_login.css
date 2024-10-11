@@ -2,7 +2,7 @@
 body, html {
     margin: 0;
     padding: 0;
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif;
     background-color: #121011; /* Matches the background color used in the about section */
     height: 100vh;
     display: flex;
@@ -33,6 +33,7 @@ body, html {
     background-color: #353536; /* Matches the input background in the contact form */
     color: white;
     font-size: 16px;
+    font-family: 'Poppins', sans-serif;
 }
 
 /* Button styling */
@@ -47,6 +48,7 @@ body, html {
     font-size: 16px;
     font-weight: bold;
     transition: background-color 300ms ease;
+    font-family: 'Poppins', sans-serif;
 }
 
 .login-container button:hover {
@@ -58,4 +60,5 @@ body, html {
     color: #ff4d4d; /* Red color for error messages */
     font-size: 14px;
     margin-top: 10px;
+    font-family: 'Poppins', sans-serif;
 }
