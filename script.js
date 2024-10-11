@@ -176,3 +176,24 @@ function validateForm(event) {
   alert("Form submitted successfully!");
   return true;
 }
+
+// Form submission with validation
+document.querySelector('form').addEventListener('submit', function (event) {
+  let username = document.querySelector('[name="username"]').value;
+  let password = document.querySelector('[name="password"]').value;
+
+  if (username === '' || password === '') {
+      event.preventDefault();
+      alert('Both fields are required');
+  }
+});
+
+// Example AJAX function for reservations
+function sendReservation() {
+  fetch('/reservation_endpoint', {
+      method: 'POST',
+      body: new FormData(document.querySelector('form'))
+  }).then(response => response.json())
+    .then(data => alert('Reservation successful!'))
+    .catch(error => console.error('Error:', error));
+}

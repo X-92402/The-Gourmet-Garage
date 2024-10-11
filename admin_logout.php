@@ -1,12 +1,7 @@
 <?php
-// admin_logout.php
+// admin_logout.php: Admin logout script
 session_start();
-
-// Destroy all sessions
-session_unset();
 session_destroy();
-
-// Redirect to login page
 header("Location: admin_login.php");
 exit;
 ?>

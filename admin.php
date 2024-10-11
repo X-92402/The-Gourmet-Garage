@@ -1,20 +1,10 @@
 <?php
-// admin.php
-require_once 'db.php';
-
-if (!isset($_SESSION['admin_logged_in']) || !$_SESSION['admin_logged_in']) {
+session_start();
+if (!isset($_SESSION['loggedin'])) {
     header("Location: admin_login.php");
     exit;
 }
-
-$stmt = $conn->prepare("SELECT * FROM reservations");
-$stmt->execute();
-$result = $stmt->get_result();
-$reservations = array();
-
-while ($row = $result->fetch_assoc()) {
-    $reservations[] = $row;
-}
-
-echo json_encode($reservations);
 ?>
+<h2>Admin Dashboard</h2>
+<p>Welcome, Admin! You are logged in.</p>
+<a href="admin_logout.php">Logout</a>

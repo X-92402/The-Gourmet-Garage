@@ -774,3 +774,14 @@ body {
 .copyright .copyrightEdit {
   color: hsl(38, 61%, 73%);
 }
+
+/* Basic responsive design */
+@media screen and (max-width: 768px) {
+  body {
+      font-size: 14px;
+  }
+  .container {
+      width: 100%;
+      padding: 10px;
+  }
+}
