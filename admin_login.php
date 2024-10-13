@@ -30,8 +30,8 @@
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = $_POST['techblitz'];
+    $password = $_POST['techblitz'];
 
     // Authenticate the user
     if ($username === 'admin' && $password === 'techblitz') {
@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $error = "Incorrect username or password. Please try again.";
         // Redirect back to the login form with an error message
-        header("Location: admin_login.php?error=" . urlencode($error));
+        header("Location: admin_login.php?error=");
         exit;
     }
 }
