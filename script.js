@@ -128,47 +128,50 @@ document.querySelectorAll(".find-table").forEach((button) => {
 });
 
 // Form Submission Validation
-function validateForm() {
+function validateForm(event) {
+  event.preventDefault(); // Prevent form submission until validation passes
+
   let name = document.getElementById("name").value;
   let phone = document.getElementById("phone").value;
   let persons = document.getElementById("persons").value;
   let date = document.getElementById("date").value;
   let time = document.getElementById("time").value;
+  let message = document.getElementById("message").value;
 
+  // Validate Name
   if (name === "") {
     alert("Name is required.");
-    event.preventDefault();
     return false;
   }
 
-  const phonePattern = /^[0-9]{10}$/;
+  // Validate Phone (allowing only 10 digits)
+  const phonePattern = /^[0-9\+\-\(\)\s]{10,15}$/; // More flexible to allow international formats
   if (!phonePattern.test(phone)) {
     alert("Please enter a valid 10-digit phone number.");
-    event.preventDefault();
     return false;
   }
 
+  // Validate Number of Persons
   if (persons === "") {
     alert("Please select the number of persons.");
-    event.preventDefault();
     return false;
   }
 
+  // Validate Date
   if (date === "") {
     alert("Please select a date.");
-    event.preventDefault();
     return false;
   }
 
+  // Validate Time
   if (time === "") {
     alert("Please select a time.");
-    event.preventDefault();
     return false;
   }
 
+  // Validate Message
   if (message === "") {
     alert("Please enter a message.");
-    event.preventDefault();
     return false;
   }
 
@@ -177,22 +180,18 @@ function validateForm() {
 }
 
 // Form submission with validation
-document.querySelector('form').addEventListener('submit', function (event) {
-  let username = document.querySelector('[name="username"]').value;
-  let password = document.querySelector('[name="password"]').value;
-
-  if (username === '' || password === '') {
-      event.preventDefault();
-      alert('Both fields are required');
-  }
+document.querySelector("form").addEventListener("submit", function (event) {
+  event.preventDefault(); // Prevent the default form submission
+  sendReservation(); // Call the function to send data via AJAX
 });
 
-// Example AJAX function for reservations
+// AJAX function for reservations
 function sendReservation() {
-  fetch('/reservation_endpoint', {
-      method: 'POST',
-      body: new FormData(document.querySelector('form'))
-  }).then(response => response.json())
-    .then(data => alert('Reservation successful!'))
-    .catch(error => console.error('Error:', error));
+  fetch("/reservation_endpoint", {
+    method: "POST",
+    body: new FormData(document.querySelector("form")),
+  })
+    .then((response) => response.json())
+    .then((data) => alert("Reservation successful!"))
+    .catch((error) => console.error("Error:", error));
 }
