@@ -47,15 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function submitForm(event) {
     event.preventDefault();
 
-    const formData = new FormData(adminForm);
-    const reservationData = {
-      name: formData.get("name"),
-      phone: formData.get("phone"),
-      persons: formData.get("persons"),
-      date: formData.get("date"),
-      time: formData.get("time"),
-      message: formData.get("message"),
-    };
 
     // Send reservationData to the server using AJAX or Fetch API
   }

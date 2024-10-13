@@ -128,13 +128,12 @@ document.querySelectorAll(".find-table").forEach((button) => {
 });
 
 // Form Submission Validation
-function validateForm(event) {
-  const name = document.getElementById("name").value;
-  const phone = document.getElementById("phone").value;
-  const persons = document.getElementById("persons").value;
-  const date = document.getElementById("date").value;
-  const time = document.getElementById("time").value;
-  const message = document.getElementById("message").value;
+function validateForm() {
+  let name = document.getElementById("name").value;
+  let phone = document.getElementById("phone").value;
+  let persons = document.getElementById("persons").value;
+  let date = document.getElementById("date").value;
+  let time = document.getElementById("time").value;
 
   if (name === "") {
     alert("Name is required.");
