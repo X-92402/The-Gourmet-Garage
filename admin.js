@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const adminForm = document.querySelector("form");
   const reservationList = document.getElementById("reservationList");
 
+  // Fetch reservations from the server and display them
   function fetchReservations() {
     fetch("/get_reservations.php")
       .then((response) => {
@@ -16,19 +17,20 @@ document.addEventListener("DOMContentLoaded", () => {
       .catch((error) => {
         console.error("Error fetching reservations:", error);
         reservationList.innerHTML =
-          '<tr><td colspan="5">Failed to load reservations. Please refresh the page.</td></tr>';
+          '<tr><td colspan="6">Failed to load reservations. Please refresh the page.</td></tr>';
       });
   }
 
+  // Display fetched reservations in the table
   function displayReservations(data) {
     if (data.length === 0) {
       reservationList.innerHTML =
-        '<tr><td colspan="5">No current reservations.</td></tr>';
+        '<tr><td colspan="6">No current reservations.</td></tr>';
       return;
     }
 
     let tableHtml =
-      "<tr><th>Name</th><th>Phone</th><th>Persons</th><th>Date</th><th>Time</th></tr>";
+      "<tr><th>Name</th><th>Phone</th><th>Persons</th><th>Date</th><th>Time</th><th>Message</th></tr>";
     data.forEach((reservation) => {
       tableHtml += `
           <tr>
@@ -37,6 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <td>${reservation.persons}</td>
             <td>${reservation.date}</td>
             <td>${reservation.time}</td>
+            <td>${reservation.message}</td>
           </tr>
         `;
     });
@@ -44,11 +47,15 @@ document.addEventListener("DOMContentLoaded", () => {
     reservationList.innerHTML = tableHtml;
   }
 
+  // Handle form submission and send data to the server
   function submitForm(event) {
-    event.preventDefault();
+    event.preventDefault(); // Prevent the default form submission behavior
 
+    // Collect form data
+    const formData = new FormData(adminForm);
 
-    // Send reservationData to the server using AJAX or Fetch API
+    // Send reservation data to the server using AJAX or Fetch API
+    // Add logic to send the form data to your server endpoint here
   }
 
   adminForm.addEventListener("submit", submitForm);
