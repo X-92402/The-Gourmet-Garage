@@ -8,12 +8,27 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     exit;
 }
 
-// Sample data for reservations (normally from a database)
-$reservations = [
-    ['name' => 'John Doe', 'date' => '2024-10-13', 'time' => '18:00', 'persons' => 4],
-    ['name' => 'Jane Smith', 'date' => '2024-10-14', 'time' => '19:30', 'persons' => 2],
-    // Add more reservations here or fetch from DB
-];
+require 'dp.php'; // Use the database connection file
+
+// Fetch reservations from the database
+$sql = "SELECT name, phone, persons, date, time, message FROM reservations";
+$result = $conn->query($sql);
+
+$reservations = [];
+
+if ($result) {
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $reservations[] = $row;
+        }
+    }
+} else {
+    http_response_code(500);
+    echo json_encode(['error' => 'Failed to fetch reservations']);
+    exit;
+}
 
 echo json_encode($reservations);
+$conn->close();
 exit;
+?>

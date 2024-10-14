@@ -195,3 +195,41 @@ function sendReservation() {
     .then((data) => alert("Reservation successful!"))
     .catch((error) => console.error("Error:", error));
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const reservationForm = document.querySelector("#reservation-form");
+
+  // Handle form submission and send data to the server
+  function submitForm(event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+
+    // Collect form data
+    const formData = new FormData(reservationForm);
+
+    // Send reservation data to the server using Fetch API
+    fetch("submit_reservation.php", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.success) {
+          alert("Reservation submitted successfully!");
+          reservationForm.reset(); // Reset the form
+        } else {
+          alert("Error submitting reservation: " + data.error);
+        }
+      })
+      .catch((error) => {
+        console.error("Error submitting reservation:", error);
+        alert("Error submitting reservation. Please try again.");
+      });
+  }
+
+  reservationForm.addEventListener("submit", submitForm);
+});

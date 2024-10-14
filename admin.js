@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const adminForm = document.querySelector("form");
-  const reservationList = document.getElementById("reservationList");
+  const adminForm = document.querySelector("#reservation-form");
+  const reservationList = document.getElementById("reservation-list");
 
   // Fetch reservations from the server and display them
   function fetchReservations() {
@@ -55,7 +55,26 @@ document.addEventListener("DOMContentLoaded", () => {
     const formData = new FormData(adminForm);
 
     // Send reservation data to the server using AJAX or Fetch API
-    // Add logic to send the form data to your server endpoint here
+    fetch("/submit_reservation.php", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.success) {
+          fetchReservations(); // Refresh the reservations list
+        } else {
+          console.error("Error submitting reservation:", data.error);
+        }
+      })
+      .catch((error) => {
+        console.error("Error submitting reservation:", error);
+      });
   }
 
   adminForm.addEventListener("submit", submitForm);
