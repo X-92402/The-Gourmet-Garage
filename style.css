@@ -34,8 +34,159 @@ body {
 }
 .preloader.loaded {
   transition-delay: 250ms;
-  transform: translateY(100%);
-}
+    transform: translateY(100%);
+  }
+  
+  /* General Improvements */
+  body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: #333;
+  }
+  
+  /* Improved Preloader */
+  .preloader {
+    background-color: #f4f4f4;
+  }
+  
+  /* Improved Top Bar */
+  .top-bar {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+  }
+  
+  .top-bar a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .top-bar a:hover {
+    color: #f4b400;
+  }
+  
+  /* Improved Header */
+  .header {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .header .nav-bar .nav-links a {
+    color: #fff;
+  }
+  
+  .header .nav-bar .nav-links a:hover {
+    color: #f4b400;
+  }
+  
+  .header .nav-bar .find-table {
+    background-color: #f4b400;
+    color: #333;
+  }
+  
+  .header .nav-bar .find-table:hover {
+    background-color: #fff;
+    color: #f4b400;
+  }
+  
+  /* Improved Menu Section */
+  #menu {
+    background: url("./assets/try.jpg") no-repeat center center/cover;
+    padding: 50px 0;
+  }
+  
+  #menu .menu_title {
+    color: #f4b400;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+  }
+  
+  #menu .menu_box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+  }
+  
+  #menu .grillitem {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    color: #fff;
+    transition: transform 0.3s ease;
+  }
+  
+  #menu .grillitem:hover {
+    transform: scale(1.05);
+  }
+  
+  #menu .grillitem img {
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  
+  #menu .menuEnd_edit {
+    color: #f4b400;
+    font-weight: bold;
+  }
+  
+  /* Improved Special Menu Section */
+  #specialMenu {
+    background: url("./assets/try.jpg") no-repeat center center/cover;
+    padding: 50px 0;
+  }
+  
+  #specialMenu .menu_title {
+    color: #f4b400;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+  }
+  
+  #specialMenu .menu_box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+  }
+  
+  #specialMenu .grillitem {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    color: #fff;
+    transition: transform 0.3s ease;
+  }
+  
+  #specialMenu .grillitem:hover {
+    transform: scale(1.05);
+  }
+  
+  #specialMenu .grillitem img {
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  
+  #specialMenu .menuEnd_edit {
+    color: #f4b400;
+    font-weight: bold;
+  }
+  
+  /* Improved Responsive Design */
+  @media screen and (max-width: 768px) {
+    .header .nav-bar .nav-links {
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    #menu .menu_box,
+    #specialMenu .menu_box {
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+
 
 .circle {
   width: 100px;
