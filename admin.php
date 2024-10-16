@@ -3,32 +3,27 @@ session_start();
 
 // Check if admin is logged in
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
-    header('HTTP/1.1 403 Forbidden');
-    echo json_encode(['error' => 'Access Denied']);
+    header('Location: admin_login.html');
     exit;
 }
 
-require 'dp.php'; // Use the database connection file
+// Include database connection
+require 'dp.php';
 
 // Fetch reservations from the database
-$sql = "SELECT name, phone, persons, date, time, message FROM reservations";
-$result = $conn->query($sql);
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $sql = "SELECT * FROM reservations ORDER BY date, time";
+    $result = $conn->query($sql);
 
-$reservations = [];
-
-if ($result) {
+    $reservations = [];
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $reservations[] = $row;
         }
     }
-} else {
-    http_response_code(500);
-    echo json_encode(['error' => 'Failed to fetch reservations']);
+
+    header('Content-Type: application/json');
+    echo json_encode($reservations);
     exit;
 }
-
-echo json_encode($reservations);
-$conn->close();
-exit;
 ?>

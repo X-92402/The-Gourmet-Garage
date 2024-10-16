@@ -21,17 +21,22 @@ body, html {
     color: white;
 }
 
+.login-heading {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
 /* Input fields styling */
 .login-container input[type="text"], 
 .login-container input[type="password"] {
-  box-sizing: border-box;
-  margin: 10px;
+    box-sizing: border-box;
+    margin: 10px 0;
     width: 100%;
     padding: 12px;
-    margin: 10px 0;
     border: 1px solid #333;
     border-radius: 4px;
-    box-sizing: border-box;
     background-color: #353536; /* Matches the input background in the contact form */
     color: white;
     font-size: 16px;
@@ -63,4 +68,5 @@ body, html {
     font-size: 14px;
     margin-top: 10px;
     font-family: 'Poppins', sans-serif;
+    display: none; /* Initially hidden */
 }
