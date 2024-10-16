@@ -131,7 +131,17 @@ body {
     font-weight: bold;
   }
   
-  /* Improved Special Menu Section */
+  /* Special Menu Section */
+  #specialMenu {
+    height: 100vh; /* Change from 100% to 100vh */
+    width: 100%;
+    font-family: poppins;
+    background: url("./assets/try.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
   #specialMenu {
     background: url("./assets/try.jpg") no-repeat center center/cover;
     padding: 50px 0;
@@ -636,7 +646,7 @@ body {
 
 #service {
   background: url("./assets/serviceSection.jpg");
-  height: 80%;
+  height: 100vh; /* Change from 80% to 100vh */
   width: 100%;
   background-position: center;
   background-size: cover;
@@ -706,7 +716,7 @@ body {
 /* OUR STRENGTH SECTION */
 
 #ourStrength {
-  height: 80%;
+  height: 100vh;
   width: 100%;
   background: url("./assets/try.jpg");
   background-size: cover;
