@@ -1,18 +1,24 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function() {
     const adminForm = document.querySelector("#reservation-form");
-    const reservationList = document.querySelector("#reservation-list");
 
     // Function to load reservations
     const loadReservations = () => {
-        fetch('get_reservations.php')
+        fetch('fetch_reservations.php')
             .then(response => {
                 if (!response.ok) {
-                    throw new Error("Network response was not ok");
+                    throw new Error('Network response was not ok');
                 }
                 return response.json();
             })
             .then(data => {
-                reservationList.innerHTML = '<h2>Reservations</h2>';
+                const reservationList = document.getElementById('reservation-list');
+                reservationList.innerHTML = '';
+
+                if (data.length === 0) {
+                    reservationList.innerHTML = '<p>No reservations found.</p>';
+                    return;
+                }
+
                 data.forEach(reservation => {
                     const reservationItem = document.createElement('div');
                     reservationItem.classList.add('reservation-item');
@@ -23,12 +29,15 @@ document.addEventListener("DOMContentLoaded", () => {
                         <p><strong>Date:</strong> ${reservation.date}</p>
                         <p><strong>Time:</strong> ${reservation.time}</p>
                         <p><strong>Message:</strong> ${reservation.message}</p>
+                        <p><strong>Created At:</strong> ${reservation.created_at}</p>
                     `;
                     reservationList.appendChild(reservationItem);
                 });
             })
             .catch(error => {
-                console.error('Error loading reservations:', error);
+                console.error('Error fetching reservations:', error);
+                const reservationList = document.getElementById('reservation-list');
+                reservationList.innerHTML = '<p>Error loading reservations. Please try again later.</p>';
             });
     };
 

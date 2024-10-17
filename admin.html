@@ -9,9 +9,10 @@
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
 </head>
 <body>
-    <nav>
+    <nav aria-label="Main Navigation">
         <ul>
             <li><a href="index.html">Logout</a></li>
+            <!-- Add more navigation links here if needed -->
         </ul>
     </nav>
 
@@ -19,10 +20,14 @@
         <h1>The Gourmet Garage Admin Dashboard</h1>
     </header>
 
-    <section id="reservations">
-        <h2>Current Reservations</h2>
-        <div id="reservation-list">Loading reservations...</div>
+    <section id="reservations" aria-labelledby="reservations-heading">
+        <h2 id="reservations-heading">Current Reservations</h2>
+        <div id="reservation-list" aria-live="polite">
+            <div class="loading-spinner"></div>
+            <p>Loading reservations...</p>
+        </div>
     </section>
+
     <script src="admin.js"></script>
 </body>
 </html>
