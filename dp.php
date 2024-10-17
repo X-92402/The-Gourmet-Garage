@@ -2,7 +2,7 @@
 // dp.php: Database connection file
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "your_password";
 $dbname = "gourmet_garage";
 $port = 3306;  // Default MySQL port
 
