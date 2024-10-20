@@ -135,3 +135,38 @@ form button:hover {
     font-size: 1.2em;
     color: hsl(38, 61%, 73%);
 }
+
+/* Loading spinner */
+.loading-spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #000;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Reservation list styling */
+#reservation-list {
+    margin-top: 20px;
+}
+
+.reservation-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.reservation-item p {
+    margin: 5px 0;
+}
