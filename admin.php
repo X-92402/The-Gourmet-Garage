@@ -3,7 +3,7 @@
 session_start();
 
 // Database connection
-$servername = "127.0.0.1";
+$servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "gourmet_garage"; 
@@ -41,6 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 // Handle POST request to submit a new reservation (no login required)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    if (empty($_POST)) {
+        die("No form data received.");
+    }
+
     $name = $_POST['name'];
     $phone = $_POST['phone'];
     $persons = $_POST['persons'];
@@ -50,14 +55,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $stmt = $conn->prepare("INSERT INTO reservations (name, phone, persons, date, time, message, created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())");
     $stmt->bind_param("ssisss", $name, $phone, $persons, $date, $time, $message);
-
-    $response = [];
-    if ($stmt->execute()) {
-        $response['success'] = true;
-    } else {
-        $response['success'] = false;
-        $response['error'] = $stmt->error;
-    }
+if ($stmt->execute()) {
+    echo "Reservation added successfully.";
+} else {
+    echo "Error: " . $stmt->error;
+}
 
     header('Content-Type: application/json');
     echo json_encode($response);

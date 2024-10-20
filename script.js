@@ -185,51 +185,27 @@ document.querySelector("form").addEventListener("submit", function (event) {
   sendReservation(); // Call the function to send data via AJAX
 });
 
-// AJAX function for reservations
-function sendReservation() {
-  fetch("/reservation_endpoint", {
-    method: "POST",
-    body: new FormData(document.querySelector("form")),
-  })
-    .then((response) => response.json())
-    .then((data) => alert("Reservation successful!"))
-    .catch((error) => console.error("Error:", error));
-}
-
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
   const reservationForm = document.querySelector("#reservation-form");
 
-  // Handle form submission and send data to the server
-  function submitForm(event) {
-    event.preventDefault(); // Prevent the default form submission behavior
+  reservationForm.addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent page reload
 
-    // Collect form data
-    const formData = new FormData(reservationForm);
+    const formData = new FormData(reservationForm); // Gather form data
 
-    // Send reservation data to the server using Fetch API
-    fetch("submit_reservation.php", {
+    // Send the form data via AJAX using fetch
+    fetch("insert_reservation.php", {
       method: "POST",
       body: formData,
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
+      .then((response) => response.text()) // Use .text() for debugging
       .then((data) => {
-        if (data.success) {
-          alert("Reservation submitted successfully!");
-          reservationForm.reset(); // Reset the form
-        } else {
-          alert("Error submitting reservation: " + data.error);
-        }
+        console.log(data); // Check if the response from the server is correct
+        alert(data); // Show the response message for debugging
       })
       .catch((error) => {
-        console.error("Error submitting reservation:", error);
-        alert("Error submitting reservation. Please try again.");
+        console.error("Error:", error);
+        alert("An error occurred while submitting your reservation.");
       });
-  }
-
-  reservationForm.addEventListener("submit", submitForm);
+  });
 });
