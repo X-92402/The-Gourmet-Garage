@@ -1,7 +1,19 @@
 <?php
 // submit_reservation.php
 
-require 'dp.php'; // Use the database connection file
+// Database connection details
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "gourmet_garage";
+
+// Establish connection
+$conn = new mysqli($servername, $username, $password, $dbname, $port);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
 // Check if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -17,6 +29,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($name && $phone && $persons && $date && $time) {
         // Prepare an SQL statement to insert the reservation data
         $stmt = $conn->prepare("INSERT INTO reservations (name, phone, persons, date, time, message) VALUES (?, ?, ?, ?, ?, ?)");
+        if ($stmt === false) {
+            http_response_code(500); // Internal Server Error
+            echo json_encode(['success' => false, 'error' => 'Prepare statement failed: ' . $conn->error]);
+            exit;
+        }
+
         $stmt->bind_param("ssisss", $name, $phone, $persons, $date, $time, $message);
 
         // Execute the statement and check for errors
@@ -24,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo json_encode(['success' => true]);
         } else {
             http_response_code(500); // Internal Server Error
-            echo json_encode(['success' => false, 'error' => 'Failed to add reservation']);
+            echo json_encode(['success' => false, 'error' => 'Execute failed: ' . $stmt->error]);
         }
 
         // Close the statement and connection

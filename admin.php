@@ -1,14 +1,26 @@
 <?php
+// Start the session
 session_start();
+
+// Database connection file
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "gourmet_garage";
+
+// Establish connection
+$conn = new mysqli($servername, $username, $password, $dbname, $port);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
 // Check if admin is logged in
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     header('Location: admin_login.html');
     exit;
 }
-
-// Include database connection
-require 'dp.php';
 
 // Fetch reservations from the database
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
