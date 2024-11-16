@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 // Database connection parameters
 $servername = "localhost";
 $username = "root"; // Default XAMPP username
@@ -14,7 +17,7 @@ if ($conn->connect_error) {
 }
 
 // Fetch reservations from the 'reservations' table
-$sql = "SELECT name, phone, persons, date, time, message, created_at FROM reservations";
+$sql = "SELECT id, name, phone, persons, date, time, message, created_at FROM reservations";
 $result = $conn->query($sql);
 
 $reservations = array();
