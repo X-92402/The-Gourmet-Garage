@@ -11,7 +11,7 @@ $dbname = "gourmet_garage"; // Database name
 // Create a new MySQLi connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
+// Check connectionx
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
