@@ -1,52 +1,51 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// Step 1: Database connection details
+$host = "localhost";      // Update this with your host (e.g., '127.0.0.1' or your server's IP)
+$username = "root";       // Update with your MySQL username
+$password = "";           // Update with your MySQL password
+$database = "gourmet_garage"; // Update with your database name
 
-// Database connection parameters
-$servername = "localhost"; // or "127.0.0.1"
-$username = "root"; // Default username for XAMPP
-$password = ""; // Default password for XAMPP (empty)
-$dbname = "gourmet_garage"; // Database name
+$conn = new mysqli($host, $username, $password, $database);
 
-// Create a new MySQLi connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connectionx
+// Check for connection errors
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Only proceed if this is a POST request
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Retrieve form data
-    $name = $_POST['name'];
-    $phone = $_POST['phone'];
-    $persons = $_POST['persons'];
-    $date = $_POST['date'];
-    $time = $_POST['time'];
-    $message = $_POST['message'];
+// Step 2: Sanitize and validate POST data
+$name = isset($_POST['name']) ? trim($_POST['name']) : '';
+$phone = isset($_POST['phone']) ? trim($_POST['phone']) : '';
+$persons = isset($_POST['persons']) ? intval($_POST['persons']) : 0;
+$date = isset($_POST['date']) ? $_POST['date'] : '';
+$time = isset($_POST['time']) ? $_POST['time'] : '';
+$message = isset($_POST['message']) ? trim($_POST['message']) : null;
 
-    // Validate required fields
-    if (empty($name) || empty($phone) || empty($persons) || empty($date) || empty($time)) {
-        die("All fields except message are required.");
-    }
-
-    // Prepare and execute the SQL statement to insert the reservation
-    $stmt = $conn->prepare("INSERT INTO reservations (name, phone, persons, date, time, message, created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())");
-    $stmt->bind_param("ssisss", $name, $phone, $persons, $date, $time, $message);
-
-    if ($stmt->execute()) {
-        // Success: redirect to success page or display a message
-        echo "Reservation added successfully!";
-        // Redirect to a thank you page (optional)
-        // header("Location: thank_you.html");
-    } else {
-        // Error: failed to insert
-        echo "Error inserting reservation: " . $stmt->error;
-    }
-
-    $stmt->close();
+// Validate required fields
+if (empty($name) || empty($phone) || $persons <= 0 || empty($date) || empty($time)) {
+    echo "Please fill in all required fields.";
+    exit;
 }
 
+// Step 3: Prepare and execute the SQL query
+$sql = "INSERT INTO reservations (name, phone, persons, date, time, message) 
+        VALUES (?, ?, ?, ?, ?, ?)";
+
+$stmt = $conn->prepare($sql);
+if ($stmt === false) {
+    die("Error preparing statement: " . $conn->error);
+}
+
+// Bind parameters to prevent SQL injection
+$stmt->bind_param("ssisss", $name, $phone, $persons, $date, $time, $message);
+
+// Execute the query and handle success or failure
+if ($stmt->execute()) {
+    echo "Reservation successfully created!";
+} else {
+    echo "Error: " . $stmt->error;
+}
+
+// Close the connection
+$stmt->close();
 $conn->close();
 ?>
