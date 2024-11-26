@@ -1,29 +1,30 @@
 document.addEventListener("DOMContentLoaded", function () {
   const reservationList = document.getElementById("reservation-list");
+  const modal = document.getElementById("modify-modal");
+  const closeModalButton = document.getElementById("close-modal");
+  const modifyForm = document.getElementById("modify-form");
 
-  // Function to load reservations
+  // Function to load reservations dynamically
   const loadReservations = () => {
     fetch("get_reservations.php", {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          throw new Error("Failed to fetch reservations");
         }
         return response.json();
       })
       .then((data) => {
-        reservationList.innerHTML = ""; // Clear the existing content
+        reservationList.innerHTML = ""; // Clear the existing list
 
         if (data.length === 0) {
           reservationList.innerHTML = "<p>No reservations found.</p>";
           return;
         }
 
-        // Loop through the reservations and display each one
+        // Render each reservation in the list
         data.forEach((reservation) => {
           const reservationItem = document.createElement("div");
           reservationItem.classList.add("reservation-item");
@@ -35,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <p><strong>Time:</strong> ${reservation.time}</p>
             <p><strong>Message:</strong> ${reservation.message}</p>
             <p><strong>Created At:</strong> ${reservation.created_at}</p>
-            <button onclick="modifyReservation(${reservation.id})">Modify</button>
+            <button onclick="showModifyModal(${reservation.id})">Modify</button>
             <button onclick="deleteReservation(${reservation.id})">Delete</button>
           `;
           reservationList.appendChild(reservationItem);
@@ -48,49 +49,96 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   };
 
-  // Function to modify reservation
-  window.modifyReservation = function(id) {
-    fetch(`get_reservation.php?id=${id}`)
+  // Function to open the modal and populate fields
+  window.showModifyModal = function (reservationId) {
+    fetch(`get_reservation.php?id=${reservationId}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          throw new Error("Failed to fetch reservation details");
         }
         return response.json();
       })
-      .then((data) => {
-        // Populate the form with the reservation data
-        document.getElementById("name").value = data.name;
-        document.getElementById("phone").value = data.phone;
-        document.getElementById("persons").value = data.persons;
-        document.getElementById("date").value = data.date;
-        document.getElementById("time").value = data.time;
-        document.getElementById("message").value = data.message;
-        document.getElementById("reservation-id").value = id; // Hidden input for ID
+      .then((reservation) => {
+        // Populate modal form with reservation details
+        document.getElementById("reservation-id").value = reservation.id;
+        document.getElementById("name").value = reservation.name;
+        document.getElementById("phone").value = reservation.phone;
+        document.getElementById("persons").value = reservation.persons;
+        document.getElementById("date").value = reservation.date;
+        document.getElementById("time").value = reservation.time;
+        document.getElementById("message").value = reservation.message;
+
+        modal.style.display = "block";
       })
-      .catch((error) => console.error("Error fetching reservation:", error));
+      .catch((error) => {
+        console.error("Error fetching reservation details:", error);
+      });
   };
 
-  // Function to delete reservation
-  window.deleteReservation = function(id) {
+  // Function to handle form submission for updating reservations
+  modifyForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(modifyForm);
+
+    fetch("modify_reservation.php", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to update reservation");
+        }
+        return response.text();
+      })
+      .then(() => {
+        alert("Reservation updated successfully!");
+        modal.style.display = "none";
+        loadReservations();
+      })
+      .catch((error) => {
+        console.error("Error updating reservation:", error);
+        alert("Failed to update reservation.");
+      });
+  });
+
+  closeModalButton.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  window.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+
+  window.deleteReservation = function (id) {
     if (confirm("Are you sure you want to delete this reservation?")) {
       fetch("delete_reservation.php", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id: id }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id }),
       })
-        .then((response) => response.text())
-        .then((data) => {
-          alert(data);
-          loadReservations(); // Refresh the reservation list
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to delete reservation");
+          }
+          return response.text();
+        })
+        .then(() => {
+          alert("Reservation deleted successfully!");
+          loadReservations();
         })
         .catch((error) => {
           console.error("Error deleting reservation:", error);
+          alert("Failed to delete reservation.");
         });
     }
   };
 
-  // Load reservations when the page loads
+  // Initial load of reservations
   loadReservations();
 });

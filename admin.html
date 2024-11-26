@@ -1,33 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - The Gourmet Garage</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="admin.css">
-    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin - The Gourmet Garage</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" />
 </head>
 <body>
-    <nav aria-label="Main Navigation">
-        <ul>
-            <li><a href="index.html">Logout</a></li>
-            <!-- Add more navigation links here if needed -->
-        </ul>
-    </nav>
+  <nav aria-label="Main Navigation">
+    <ul>
+      <li><a href="index.html">Logout</a></li>
+    </ul>
+  </nav>
 
-    <header>
-        <h1>The Gourmet Garage Admin Dashboard</h1>
-    </header>
+  <header>
+    <h1>The Gourmet Garage Admin Dashboard</h1>
+  </header>
 
-    <section id="reservations" aria-labelledby="reservations-heading">
-        <h2 id="reservations-heading">Current Reservations</h2>
-        <div id="reservation-list" aria-live="polite">
-            <div class="loading-spinner"></div>
-            <p>Loading reservations...</p>
-        </div>
-    </section>
+  <section id="reservations" aria-labelledby="reservations-heading">
+    <h2 id="reservations-heading">Current Reservations</h2>
+    <div id="reservation-list" aria-live="polite">
+      <div class="loading-spinner"></div>
+      <p>Loading reservations...</p>
+    </div>
+  </section>
 
-    <script src="admin.js"></script>
+  <!-- Modify Reservation Modal -->
+  <div id="modify-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <!-- Close Button -->
+      <span class="close-btn" id="close-modal" style="cursor: pointer;">&times;</span>
+      
+      <!-- Modal Title -->
+      <h3>Modify Reservation</h3>
+      
+      <!-- Form -->
+      <form id="modify-form">
+        <!-- Hidden Input for Reservation ID -->
+        <input type="hidden" id="reservation-id" name="id" />
+  
+        <!-- Form Fields -->
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required />
+  
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" name="phone" required />
+  
+        <label for="persons">Persons:</label>
+        <input type="number" id="persons" name="persons" required />
+  
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required />
+  
+        <label for="time">Time:</label>
+        <input type="time" id="time" name="time" required />
+  
+        <label for="message">Message:</label>
+        <textarea id="message" name="message"></textarea>
+  
+        <!-- Submit Button -->
+        <button type="submit">Save Changes</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="admin.js"></script>
 </body>
 </html>

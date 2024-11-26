@@ -7,13 +7,14 @@ $username = "root";
 $password = "";
 $dbname = "gourmet_garage"; 
 
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo "Database connection failed: " . $e->getMessage();
-    exit();
+// Establish connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
+
 
 // Get the JSON input
 $input = json_decode(file_get_contents('php://input'), true);
