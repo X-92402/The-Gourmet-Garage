@@ -1,9 +1,9 @@
 <?php
 // Step 1: Database connection details
-$host = "localhost";      // Update this with your host (e.g., '127.0.0.1' or your server's IP)
-$username = "root";       // Update with your MySQL username
-$password = "";           // Update with your MySQL password
-$database = "gourmet_garage"; // Update with your database name
+$host = "localhost";      
+$username = "root";       
+$password = "";           
+$database = "gourmet_garage"; 
 
 $conn = new mysqli($host, $username, $password, $database);
 

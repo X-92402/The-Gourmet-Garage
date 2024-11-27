@@ -44,8 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .catch((error) => {
         console.error("Error fetching reservations:", error);
-        reservationList.innerHTML =
-          "<p>Error loading reservations. Please try again later.</p>";
+        reservationList.innerHTML = "<p>Error loading reservations. Please try again later.</p>";
       });
   };
 
@@ -115,6 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // Delete function to remove reservation
   window.deleteReservation = function (id) {
     if (confirm("Are you sure you want to delete this reservation?")) {
       fetch("delete_reservation.php", {

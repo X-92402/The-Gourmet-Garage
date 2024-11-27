@@ -13,25 +13,47 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die(json_encode(['error' => 'Connection failed: ' . $conn->connect_error]));
 }
 
-// Fetch reservations from the 'reservations' table
-$sql = "SELECT id, name, phone, persons, date, time, message, created_at FROM reservations";
-$result = $conn->query($sql);
+// Check if an ID is provided in the GET request
+if (isset($_GET['id']) && !empty($_GET['id'])) {
+    // Fetch a specific reservation by ID
+    $reservationId = $_GET['id'];
 
-$reservations = array();
+    // Prepare and bind the query to fetch a specific reservation
+    $stmt = $conn->prepare("SELECT id, name, phone, persons, date, time, message, created_at FROM reservations WHERE id = ?");
+    $stmt->bind_param("i", $reservationId); // "i" means the parameter is an integer
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-if ($result->num_rows > 0) {
-    // Output each row of the table
-    while ($row = $result->fetch_assoc()) {
-        $reservations[] = $row;
+    $reservation = $result->fetch_assoc();
+
+    if ($reservation) {
+        // Return the reservation data in JSON format
+        echo json_encode($reservation);
+    } else {
+        echo json_encode(['error' => 'Reservation not found.']);
     }
-} 
 
-// Return the result in JSON format
-header('Content-Type: application/json');
-echo json_encode($reservations);
+    $stmt->close();
+} else {
+    // Fetch all reservations from the table
+    $sql = "SELECT id, name, phone, persons, date, time, message, created_at FROM reservations ORDER BY created_at DESC";
+    $result = $conn->query($sql);
+
+    $reservations = array();
+
+    if ($result->num_rows > 0) {
+        // Output each row of the table
+        while ($row = $result->fetch_assoc()) {
+            $reservations[] = $row;
+        }
+    }
+
+    // Return all reservations in JSON format
+    echo json_encode($reservations);
+}
 
 $conn->close();
 ?>
