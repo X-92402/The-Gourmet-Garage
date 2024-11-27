@@ -23,6 +23,10 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
     // Prepare and bind the query to fetch a specific reservation
     $stmt = $conn->prepare("SELECT id, name, phone, persons, date, time, message, created_at FROM reservations WHERE id = ?");
+    if (!$stmt) {
+        die(json_encode(['error' => 'SQL Error: ' . $conn->error]));
+    }
+
     $stmt->bind_param("i", $reservationId); // "i" means the parameter is an integer
     $stmt->execute();
     $result = $stmt->get_result();
@@ -38,11 +42,11 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
     $stmt->close();
 } else {
-    // Fetch all reservations from the table
+    // Fetch all reservations from the table if no specific ID is provided
     $sql = "SELECT id, name, phone, persons, date, time, message, created_at FROM reservations ORDER BY created_at DESC";
     $result = $conn->query($sql);
 
-    $reservations = array();
+    $reservations = [];
 
     if ($result->num_rows > 0) {
         // Output each row of the table

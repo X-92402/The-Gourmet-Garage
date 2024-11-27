@@ -34,29 +34,30 @@
       
       <h3>Modify Reservation</h3>
       
-      <!-- Form -->
       <form id="modify-form">
         <input type="hidden" id="reservation-id" name="id" />
-  
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required />
-  
+        
         <label for="phone">Phone:</label>
         <input type="text" id="phone" name="phone" required />
-  
+        
         <label for="persons">Persons:</label>
         <input type="number" id="persons" name="persons" required />
-  
+        
         <label for="date">Date:</label>
         <input type="date" id="date" name="date" required />
-  
+        
         <label for="time">Time:</label>
         <input type="time" id="time" name="time" required />
-  
+        
         <label for="message">Message:</label>
         <textarea id="message" name="message"></textarea>
-  
-        <button type="submit">Save Changes</button>
+        
+        <div class="form-buttons">
+          <button type="submit">Save Changes</button>
+          <button type="button" id="cancel-button">Cancel</button>
+        </div>
       </form>
     </div>
   </div>
