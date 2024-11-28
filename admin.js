@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Load reservations from the server
   const loadReservations = () => {
-    fetch("get_reservations.php")
+    fetch("get_reservation.php")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch reservations.");
