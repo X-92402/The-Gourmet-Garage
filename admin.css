@@ -172,32 +172,170 @@ form button:hover {
     margin: 5px 0;
 }
 
+/* Path: styles/modify-reservation-modal.css */
+
+/* General modal styles */
 .modal {
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 50%; /* Position the modal at the vertical center */
+    left: 50%; /* Position the modal at the horizontal center */
+    transform: translate(-50%, -50%); /* Adjusts the modal position by half its width/height to perfectly center it */
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Transparent background */
-    display: none; /* Initially hidden */
-    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7); /* Darker background for dark mode */
+    display: none; /* Hidden by default */
     justify-content: center;
+    align-items: center;
+    z-index: 1000;
   }
   
+  /* Modal content box */
   .modal-content {
-    background: white;
+    background-color: #333; /* Dark background for modal content */
+    width: 100%;
+    max-width: 480px; /* Reduced max-width for compact modal */
+    height: auto;
+    max-height: 85vh; /* Limit height */
     padding: 20px;
     border-radius: 8px;
-    max-width: 400px;
-    width: 100%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); /* Subtle shadow for dark theme */
+    animation: fadeIn 0.3s ease-in-out;
+    box-sizing: border-box;
+    overflow-y: auto; /* Allow scroll if content overflows */
   }
   
+  /* Close button */
   .close-btn {
     position: absolute;
     top: 10px;
-    right: 10px;
-    font-size: 24px;
+    right: 15px;
+    font-size: 20px;
+    color: #fff; /* Light color for dark mode */
     cursor: pointer;
+    transition: color 0.3s ease;
   }
+  
+  .close-btn:hover {
+    color: #e74c3c; /* Red color on hover */
+  }
+  
+  /* Modal heading */
+  .modal-content h3 {
+    margin-top: 0;
+    font-size: 1.4rem; /* Slightly smaller heading */
+    text-align: center;
+    color: #fff; /* Light text for dark mode */
+  }
+  
+  /* Form styles */
+  #modify-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* Adjusted gap */
+  }
+  
+  /* Form labels */
+  #modify-form label {
+    font-size: 0.85rem;
+    color: #ccc; /* Lighter label color for dark mode */
+    margin-bottom: 5px;
+  }
+  
+  /* Input styles */
+  #modify-form input, 
+  #modify-form textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #555; /* Darker border for dark mode */
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: #fff; /* Light text */
+    background-color: #444; /* Dark background for inputs */
+    box-sizing: border-box;
+  }
+  
+  #modify-form textarea {
+    resize: vertical;
+    min-height: 70px;
+  }
+  
+  /* Buttons container */
+  .form-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  
+  /* Buttons */
+  .form-buttons button {
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    background-color: #555; /* Default button color */
+    color: #fff;
+  }
+  
+  /* Save Changes button */
+  .form-buttons button[type="submit"] {
+    background-color: #28a745;
+  }
+  
+  .form-buttons button[type="submit"]:hover {
+    background-color: #218838;
+  }
+  
+  /* Cancel button */
+  #cancel-button {
+    background-color: #dc3545;
+  }
+  
+  #cancel-button:hover {
+    background-color: #c82333;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .modal-content {
+      width: 85%;
+      padding: 15px;
+    }
+    .modal-content h3 {
+      font-size: 1.2rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .modal-content {
+      width: 90%;
+      padding: 12px;
+    }
+    .modal-content h3 {
+      font-size: 1rem;
+    }
+    #modify-form input, 
+    #modify-form textarea {
+      padding: 6px;
+      font-size: 0.8rem;
+    }
+    .form-buttons button {
+      padding: 6px 10px;
+    }
+  }
+  
+  /* Animation for modal fade-in effect */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
   

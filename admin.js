@@ -45,6 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Show modal with reservation details for modification
   window.showModifyModal = function (reservationId) {
+    console.log("Modify button clicked. ID:", reservationId); // Debugging log
     fetch(`get_reservation.php?id=${reservationId}`)
       .then((response) => {
         if (!response.ok) {
@@ -54,9 +55,11 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .then((reservation) => {
         if (reservation.error) {
+          console.error("Error from server:", reservation.error);
           alert(reservation.error);
         } else {
           // Populate the modal with the reservation data
+          console.log("Fetched reservation:", reservation); // Debugging log
           document.getElementById("reservation-id").value = reservation.id;
           document.getElementById("name").value = reservation.name;
           document.getElementById("phone").value = reservation.phone;
@@ -68,9 +71,36 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       })
       .catch((error) => {
-        console.error("Error:", error); // Log detailed error to console
+        console.error("Error fetching reservation:", error);
         alert("An error occurred while fetching reservation data.");
       });
+  };
+
+  // Delete reservation
+  window.deleteReservation = function (reservationId) {
+    if (confirm("Are you sure you want to delete this reservation?")) {
+      fetch("delete_reservation.php", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: reservationId }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to delete reservation.");
+          }
+          return response.text();
+        })
+        .then((message) => {
+          alert(message);
+          loadReservations();
+        })
+        .catch((error) => {
+          console.error(error);
+          alert("Failed to delete reservation.");
+        });
+    }
   };
 
   // Submit modified reservation data
