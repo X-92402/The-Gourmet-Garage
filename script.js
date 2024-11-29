@@ -126,3 +126,114 @@ document.querySelectorAll(".find-table").forEach((button) => {
     });
   });
 });
+
+// Get modal elements
+const modal = document.getElementById("confirmationModal");
+const span = document.getElementsByClassName("close")[0];
+const confirmButton = document.getElementById("confirmButton");
+const cancelButton = document.getElementById("cancelButton");
+const reservationDetails = document.getElementById("reservationDetails");
+const detailName = document.getElementById("detailName");
+const detailPhone = document.getElementById("detailPhone");
+const detailPersons = document.getElementById("detailPersons");
+const detailDate = document.getElementById("detailDate");
+const detailTime = document.getElementById("detailTime");
+const detailMessage = document.getElementById("detailMessage");
+
+// Reservation Form Submission (with alert)
+document.querySelector("#reservationForm").addEventListener("submit", function (e) {
+  e.preventDefault(); // Prevent form submission
+
+  // Collect form data
+  const formData = new FormData(this);
+  const name = formData.get('name').trim();
+  const phone = formData.get('phone').trim();
+  const persons = formData.get('persons').trim();
+  const date = formData.get('date').trim();
+  const time = formData.get('time').trim();
+  const message = formData.get('message').trim();
+
+  // Validate form fields
+  if (!name || !phone || !persons || !date || !time) {
+    alert('Please fill in all required fields.');
+    return;
+  }
+
+  // Validate reservation time against working hours
+  const dayOfWeek = new Date(date).getDay(); // 0 (for Sunday) through 6 (for Saturday)
+  const reservationTime = new Date(`${date}T${time}`);
+  const lunchStart = new Date(`${date}T10:00`);
+  const lunchEnd = new Date(`${date}T14:30`);
+  const dinnerStart = new Date(`${date}T17:00`);
+  const dinnerEnd = new Date(`${date}T22:00`);
+
+  // Adjust end times to be one hour before closing
+  const lunchEndAdjusted = new Date(lunchEnd.getTime() - 60 * 60 * 1000);
+  const dinnerEndAdjusted = new Date(dinnerEnd.getTime() - 60 * 60 * 1000);
+
+  if ((dayOfWeek >= 0 && dayOfWeek <= 5 && (reservationTime < lunchStart || reservationTime > lunchEndAdjusted) && (reservationTime < dinnerStart || reservationTime > dinnerEndAdjusted)) ||
+      (dayOfWeek == 6 && (reservationTime < dinnerStart || reservationTime > dinnerEndAdjusted))) {
+    alert('Reservation time is outside of working hours.');
+    return;
+  }
+
+  // Display reservation details in the modal
+  detailName.textContent = name;
+  detailPhone.textContent = phone;
+  detailPersons.textContent = persons;
+  detailDate.textContent = date;
+  detailTime.textContent = time;
+  detailMessage.textContent = message;
+
+  // Show the modal with fade effect
+  modal.classList.add("show");
+  modal.style.display = "block";
+});
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.classList.remove("show");
+  setTimeout(() => modal.style.display = "none", 500); // Wait for fade-out effect
+}
+
+// When the user clicks on cancel button, close the modal
+cancelButton.onclick = function() {
+  modal.classList.remove("show");
+  setTimeout(() => modal.style.display = "none", 500); // Wait for fade-out effect
+}
+
+// When the user clicks on confirm button, submit the form
+confirmButton.onclick = function() {
+  // Collect form data
+  const formData = new FormData(document.querySelector("#reservationForm"));
+
+  // Send data to the PHP script
+  fetch('insert_reservation.php', { // Updated PHP script path
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    // Show alert message based on server response
+    if (data.startsWith('Error: ')) {
+      alert(data.replace('Error: ', '')); // Remove "Error: " prefix
+    } else {
+      alert("Reservation successfully created!"); // Show success message
+    }
+    modal.classList.remove("show");
+    setTimeout(() => modal.style.display = "none", 500); // Wait for fade-out effect
+  })
+  .catch(error => {
+    alert("An error occurred: " + error.message); // Error alert for network issues
+    modal.classList.remove("show");
+    setTimeout(() => modal.style.display = "none", 500); // Wait for fade-out effect
+  });
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.classList.remove("show");
+    setTimeout(() => modal.style.display = "none", 500); // Wait for fade-out effect
+  }
+}

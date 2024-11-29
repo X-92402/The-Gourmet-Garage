@@ -948,3 +948,68 @@ body {
       padding: 10px;
   }
 }
+
+/* Modal Box Styles */
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgba(0,0,0,0.8); 
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.modal-content {
+  background-color: #333333;
+  color: #ffffff;
+  margin: 15% auto; 
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; 
+}
+
+.modal.show {
+  display: block;
+  opacity: 1;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#reservationDetails p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+#confirmButton, #cancelButton {
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+#confirmButton {
+  background-color: #4CAF50;
+  color: white;
+}
+
+#cancelButton {
+  background-color: #f44336;
+  color: white;
+}

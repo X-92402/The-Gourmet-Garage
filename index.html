@@ -388,11 +388,7 @@
             </p>
           </div>
           <div class="form-container">
-            <form
-              action="insert_reservation.php"
-              method="POST"
-              
-            >
+            <form id="reservationForm" action="insert_reservation.php" method="POST">
               <table>
                 <tr>
                   <td><label for="name">Name</label></td>
@@ -484,6 +480,24 @@
         </div>
       </div>
     </div>
+
+<!-- Modal Box -->
+<div id="confirmationModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Confirm Your Reservation</h2>
+    <div id="reservationDetails">
+      <p><strong>Name:</strong> <span id="detailName"></span></p>
+      <p><strong>Phone:</strong> <span id="detailPhone"></span></p>
+      <p><strong>Number of Persons:</strong> <span id="detailPersons"></span></p>
+      <p><strong>Date:</strong> <span id="detailDate"></span></p>
+      <p><strong>Time:</strong> <span id="detailTime"></span></p>
+      <p><strong>Message:</strong> <span id="detailMessage"></span></p>
+    </div>
+    <button id="confirmButton">Confirm</button>
+    <button id="cancelButton">Cancel</button>
+  </div>
+</div>
 
     <!-- COPYRIGHT -->
     <div class="copyright">
