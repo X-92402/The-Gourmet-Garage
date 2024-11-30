@@ -924,6 +924,22 @@ body {
 #contact .contact_container .contact_info .socialMedia i {
   cursor: pointer;
 }
+
+/* Add styles for social media icons */
+.socialMedia a {
+  color: inherit; /* Inherit the color from the parent element */
+  text-decoration: none; /* Remove underline */
+  margin: 0 10px; /* Add some spacing between icons */
+}
+
+.socialMedia a:hover {
+  color: #f4b400; /* Change color on hover, for example */
+}
+
+.socialMedia i {
+  font-size: 24px; /* Adjust icon size */
+}
+
 .copyright {
   height: 10%;
   width: 100%;

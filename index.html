@@ -19,6 +19,7 @@
       href="https://fonts.googleapis.com/css2?family=Forum&display=swap"
       rel="stylesheet"
     />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   </head>
   <body>
     <!-- PRELOADER -->
@@ -32,7 +33,7 @@
       <div class="topBar-left">
         <div class="location">
           <i class="bx bxs-map"></i>
-          <span><a href="#">George Town, Penang, Malaysia</a></span>
+          <span><a href="https://www.google.com/maps/place/George+Town,+Penang/@5.4058799,100.3093465,13z/data=!3m1!4b1!4m6!3m5!1s0x304ac397ad2b7bd5:0x239ae45978a9b934!8m2!3d5.4140975!4d100.3285271!16zL20vMDE1ODA2?entry=ttu&g_ep=EgoyMDI0MTEyNC4xIKXMDSoASAFQAw%3D%3D" target="_blank">George Town, Penang, Malaysia</a></span>
         </div>
         <hr />
         <div class="time">
@@ -56,8 +57,7 @@
         </div>
         <div class="admin">
           <i class="bx bxs-lock"></i>
-          <span>
-            <a href="admin_login.html">Admin Login</a> </span>
+          <span> <a href="admin_login.html">Admin Login</a> </span>
         </div>
       </div>
     </div>
@@ -76,7 +76,7 @@
           <li><a href="#service">Service</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
-        <button class="find-table"><p>FIND A TABLE</p></button>
+        <button class="find-table"><p>BOOK A TABLE</p></button>
       </nav>
     </div>
 
@@ -220,27 +220,27 @@
         <h1 class="menu_title">Drinks & Desserts</h1>
         <div class="menu_box">
           <div class="menuBox1">
-          <span class="grillitem">
-            <img src="./assets/cappuccino.jpg" alt="" />
-            <p class="grillitem_title">
-              COFFEE <br />
-              <span class="menuEnd_edit">RM 8</span>
-            </p>
-          </span>
-          <span class="grillitem">
-            <img src="./assets/tea.jpg" alt="" />
-            <p class="grillitem_title">
-              TEA<br />(Red/Milk/Green) <br />
-              <span class="menuEnd_edit">RM 1.50 / 3.50 / 5</span>
-            </p>
-          </span>
-          <span class="grillitem">
-            <img src="./assets/coldDrinks.jpg" alt="" />
-            <p class="grillitem_title">
-              COLD DRINKS <br />
-              <span class="menuEnd_edit">RM 3</span>
-            </p>
-          </span>
+            <span class="grillitem">
+              <img src="./assets/cappuccino.jpg" alt="" />
+              <p class="grillitem_title">
+                COFFEE <br />
+                <span class="menuEnd_edit">RM 8</span>
+              </p>
+            </span>
+            <span class="grillitem">
+              <img src="./assets/tea.jpg" alt="" />
+              <p class="grillitem_title">
+                TEA<br />(Red/Milk/Green) <br />
+                <span class="menuEnd_edit">RM 1.50 / 3.50 / 5</span>
+              </p>
+            </span>
+            <span class="grillitem">
+              <img src="./assets/coldDrinks.jpg" alt="" />
+              <p class="grillitem_title">
+                COLD DRINKS <br />
+                <span class="menuEnd_edit">RM 3</span>
+              </p>
+            </span>
           </div>
           <hr />
           <div class="menuBox2">
@@ -388,7 +388,11 @@
             </p>
           </div>
           <div class="form-container">
-            <form id="reservationForm" action="insert_reservation.php" method="POST">
+            <form
+              id="reservationForm"
+              action="insert_reservation.php"
+              method="POST"
+            >
               <table>
                 <tr>
                   <td><label for="name">Name</label></td>
@@ -442,7 +446,7 @@
                 rows="4"
               ></textarea>
 
-              <button class="submit" type="submit" >BOOK A TABLE</button>
+              <button class="submit" type="submit">BOOK A TABLE</button>
             </form>
           </div>
         </div>
@@ -471,33 +475,35 @@
             >
           </p>
           <span class="socialMedia">
-            <i class="bx bxl-facebook-circle"></i>
-            <i class="bx bxl-instagram"></i>
-            <i class="bx bxl-twitter"></i>
-            <i class="bx bxs-phone"></i>
-            <i class="bx bxl-gmail"></i>
+            <a href="https://www.facebook.com" target="_blank"><i class="bx bxl-facebook-circle"></i></a>
+            <a href="https://www.instagram.com" target="_blank"><i class="bx bxl-instagram"></i></a>
+            <a href="https://www.twitter.com" target="_blank"><i class="bx bxl-twitter"></i></a>
+            <a href="tel:+60177028198"><i class="bx bxs-phone"></i></a>
+            <a href="mailto:info@thegourmetgarage.com"><i class="bx bxl-gmail"></i></a>
           </span>
         </div>
       </div>
     </div>
 
-<!-- Modal Box -->
-<div id="confirmationModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h2>Confirm Your Reservation</h2>
-    <div id="reservationDetails">
-      <p><strong>Name:</strong> <span id="detailName"></span></p>
-      <p><strong>Phone:</strong> <span id="detailPhone"></span></p>
-      <p><strong>Number of Persons:</strong> <span id="detailPersons"></span></p>
-      <p><strong>Date:</strong> <span id="detailDate"></span></p>
-      <p><strong>Time:</strong> <span id="detailTime"></span></p>
-      <p><strong>Message:</strong> <span id="detailMessage"></span></p>
+    <!-- Modal Box -->
+    <div id="confirmationModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Confirm Your Reservation</h2>
+        <div id="reservationDetails">
+          <p><strong>Name:</strong> <span id="detailName"></span></p>
+          <p><strong>Phone:</strong> <span id="detailPhone"></span></p>
+          <p>
+            <strong>Number of Persons:</strong> <span id="detailPersons"></span>
+          </p>
+          <p><strong>Date:</strong> <span id="detailDate"></span></p>
+          <p><strong>Time:</strong> <span id="detailTime"></span></p>
+          <p><strong>Message:</strong> <span id="detailMessage"></span></p>
+        </div>
+        <button id="confirmButton">Confirm</button>
+        <button id="cancelButton">Cancel</button>
+      </div>
     </div>
-    <button id="confirmButton">Confirm</button>
-    <button id="cancelButton">Cancel</button>
-  </div>
-</div>
 
     <!-- COPYRIGHT -->
     <div class="copyright">

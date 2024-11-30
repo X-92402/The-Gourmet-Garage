@@ -217,8 +217,11 @@ confirmButton.onclick = function() {
     // Show alert message based on server response
     if (data.startsWith('Error: ')) {
       alert(data.replace('Error: ', '')); // Remove "Error: " prefix
+    } else if (data === 'A reservation already exists for the selected date and time.') {
+      alert(data); // Show duplicate reservation message
     } else {
       alert("Reservation successfully created!"); // Show success message
+      document.querySelector("#reservationForm").reset(); // Clear the form
     }
     modal.classList.remove("show");
     setTimeout(() => modal.style.display = "none", 500); // Wait for fade-out effect

@@ -117,10 +117,18 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         return response.text();
       })
-      .then(() => {
-        alert("Reservation updated successfully.");
-        modal.style.display = "none";
-        loadReservations();
+      .then((data) => {
+        if (data.startsWith("Error:")) {
+          alert(data.replace("Error:", "").trim());
+        } else if (data === "A reservation already exists for the selected date and time.") {
+          alert(data);
+        } else if (data === "Reservation time is outside of working hours.") {
+          alert(data);
+        } else {
+          alert("Reservation updated successfully.");
+          modal.style.display = "none";
+          loadReservations();
+        }
       })
       .catch((error) => {
         console.error(error);
