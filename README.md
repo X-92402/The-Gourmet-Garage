@@ -10,3 +10,5 @@ STEPS TO RUN THE WEBSITE -
    
 ADMIN USERNAME - techblitz     
 ADMIN PASSWORD - techblitz
+
+PRESENTATION SLIDESHOW - https://www.canva.com/design/DAGSSDeGKMo/s7tpTljL1-jNpGZtrovejQ/view?utm_content=DAGSSDeGKMo&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hc8f2c1a255#1
